@@ -44,13 +44,13 @@ def get_pull_ids(old_ref, new_ref)
 end
 
 def get_resolves(pull_request)
-  resolves = pull_request["body"].scan(/[Rr]esolves?:? \[?((?:US|DE|TA)\d+)/) || []
-  resolves.flatten.uniq
+  resolves = pull_request["body"].scan(/resolves?:? \[?((?:US|DE|TA)\d+)/i) || []
+  resolves.flatten.uniq.map(&:upcase)
 end
 
 def get_impacts(pull_request)
-  impacts = pull_request["body"].scan(/[Ii]mpacts?:? \[?((?:US|DE|TA)\d+)/) || []
-  impacts.flatten.uniq
+  impacts = pull_request["body"].scan(/impacts?:? \[?((?:US|DE|TA)\d+)/i) || []
+  impacts.flatten.uniq.map(&:upcase)
 end
 
 def url_for_rally(project_id, type, object_id)
